@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://b83k67gvuvgfj"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_q6oyx"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_01qpw"]
+size = Vector2(20, 20)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v1cvc"]
+
+[sub_resource type="Sky" id="Sky_ksrfp"]
+sky_material = SubResource("ProceduralSkyMaterial_v1cvc")
+
+[sub_resource type="Environment" id="Environment_ibxkw"]
+background_mode = 2
+sky = SubResource("Sky_ksrfp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fgqcp"]
+size = Vector3(10, 10, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fjeow"]
+size = Vector3(10, 10, 1)
+
+[node name="Level0" type="Node3D"]
+
+[node name="ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+shape = SubResource("WorldBoundaryShape3D_q6oyx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
+mesh = SubResource("PlaneMesh_01qpw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ibxkw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.434461, 0.900691, 0, -0.900691, 0.434461, 0, 0, 0)
+shadow_enabled = true
+
+[node name="wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877958, 5.20592, -11.0738)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall"]
+mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(0.586401, 0, 0.810021, 0, 1, 0, -0.810021, 0, 0.586401, -18.4855, 5.20592, -7.47987)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall4"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall4"]
+mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall5" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.290201, 0, 0.956966, 0, 1, 0, -0.956966, 0, -0.290201, -19.9269, 5.20592, 0.733084)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall5"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall5"]
+mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7425, 5.20592, -11.0738)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall3"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall3"]
+mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.863228, 0.0170454, -0.504526, -0.504814, 0.0291475, -0.862736, 0, 0.99943, 0.0337657, 8.40735, 1.9069, -6.39601)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall2"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall2"]
+mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall6" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0340859, -0.997977, -0.0536613, -0.504814, 0.0291475, -0.862736, 0.862555, 0.0564961, -0.502799, -13.7968, 1.9069, 8.25099)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall6"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall6"]
+mesh = SubResource("BoxMesh_fjeow")

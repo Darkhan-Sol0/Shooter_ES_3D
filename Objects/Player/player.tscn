@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://bh6egtb2u1di8"]
+
+[ext_resource type="Script" path="res://Scripts/ObjectsScripts/player.gd" id="1_6s5b0"]
+[ext_resource type="Script" path="res://Scripts/GlobalScripts/IterpolatedTransform.gd" id="2_3f7ih"]
+[ext_resource type="Script" path="res://Scripts/ComponentScripts/AtackComponent.gd" id="4_7u68l"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxbrq"]
+
+[sub_resource type="Animation" id="Animation_e6nt8"]
+resource_name = "idle"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/IterpolatedTransform/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.05, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/IterpolatedTransform/Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8qxpx"]
+resource_name = "walk"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/IterpolatedTransform/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.05, 0), Vector3(0, 0, 0), Vector3(0, 0.05, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/IterpolatedTransform/Camera3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.0174533), Vector3(0, 0, 0), Vector3(0, 0, -0.0174533), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_glmkg"]
+_data = {
+"idle": SubResource("Animation_e6nt8"),
+"walk": SubResource("Animation_8qxpx")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("atack_component")]
+script = ExtResource("1_6s5b0")
+atack_component = NodePath("Atack_Component")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_gxbrq")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Marker3D" type="Marker3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 0.960011, 0.279963, 0, -0.279963, 0.960011, 0.477119, -0.529948, -0.312367)
+
+[node name="IterpolatedTransform" type="Node3D" parent="Head"]
+script = ExtResource("2_3f7ih")
+
+[node name="Camera3D" type="Camera3D" parent="Head/IterpolatedTransform"]
+cull_mask = 1047553
+fov = 100.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_glmkg")
+}
+
+[node name="Atack_Component" type="Node3D" parent="." node_paths=PackedStringArray("hitbox")]
+script = ExtResource("4_7u68l")
+hitbox = NodePath("")
