@@ -77,7 +77,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_gxbrq")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.5)
 
 [node name="Marker3D" type="Marker3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 0.960011, 0.279963, 0, -0.279963, 0.960011, 0.477119, -0.529948, -0.312367)
@@ -94,6 +94,5 @@ libraries = {
 "": SubResource("AnimationLibrary_glmkg")
 }
 
-[node name="Atack_Component" type="Node3D" parent="." node_paths=PackedStringArray("hitbox")]
+[node name="Atack_Component" type="Node3D" parent="."]
 script = ExtResource("4_7u68l")
-hitbox = NodePath("")
