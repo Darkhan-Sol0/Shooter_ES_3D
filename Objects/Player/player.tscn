@@ -84,8 +84,8 @@ transform = Transform3D(1, 0, 0, 0, 0.960011, 0.279963, 0, -0.279963, 0.960011, 
 script = ExtResource("2_3f7ih")
 
 [node name="Camera3D" type="Camera3D" parent="Head/IterpolatedTransform"]
+transform = Transform3D(0.999903, 0.0139622, 0, -0.0139622, 0.999903, 0, 0, 0, 1, 0, 0.04, 0)
 cull_mask = 1047553
-fov = 100.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

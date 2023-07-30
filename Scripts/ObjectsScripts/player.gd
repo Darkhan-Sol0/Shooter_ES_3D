@@ -2,7 +2,9 @@ extends CharacterBody3D
 
 @onready var animation = $"AnimationPlayer"
 
-@export var real_speed : float = 10.0
+@onready var camera = $Head/IterpolatedTransform/Camera3D
+
+@export var real_speed : float = 7.0
 var speed : float = 0.0
 var stop_speed : float
 
@@ -34,10 +36,13 @@ func type_movement(delta):
 	match stat_move:
 		STATUS_MOVEMENT.run:
 			speed = snapped(move_toward(speed, real_speed, 20 * delta), 0.001)
+			camera.fov = snapped(move_toward(camera.fov, 90.0, 100 * delta), 0.001)
 		STATUS_MOVEMENT.sprint:
 			speed = snapped(move_toward(speed, real_speed * 1.8, 20 * delta), 0.001)
+			camera.fov = snapped(move_toward(camera.fov, 100.0, 100 * delta), 0.001)
 		STATUS_MOVEMENT.walk:
 			speed = snapped(move_toward(speed, real_speed * 0.3, 20 * delta), 0.001)
+			camera.fov = snapped(move_toward(camera.fov, 90.0, 100 * delta), 0.001)
 
 func change_pose(CHANGE_POSE_STATUS):
 	stat_pose = CHANGE_POSE_STATUS
