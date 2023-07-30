@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bh6egtb2u1di8"]
+[gd_scene load_steps=7 format=3 uid="uid://bh6egtb2u1di8"]
 
 [ext_resource type="Script" path="res://Scripts/ObjectsScripts/player.gd" id="1_6s5b0"]
 [ext_resource type="Script" path="res://Scripts/GlobalScripts/IterpolatedTransform.gd" id="2_3f7ih"]
-[ext_resource type="Script" path="res://Scripts/ComponentScripts/AtackComponent.gd" id="4_7u68l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxbrq"]
 
@@ -68,9 +67,8 @@ _data = {
 "walk": SubResource("Animation_8qxpx")
 }
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("atack_component")]
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_6s5b0")
-atack_component = NodePath("Atack_Component")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -93,6 +91,3 @@ fov = 100.0
 libraries = {
 "": SubResource("AnimationLibrary_glmkg")
 }
-
-[node name="Atack_Component" type="Node3D" parent="."]
-script = ExtResource("4_7u68l")
