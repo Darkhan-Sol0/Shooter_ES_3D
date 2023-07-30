@@ -90,3 +90,21 @@ shape = SubResource("BoxShape3D_fgqcp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall6"]
 mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall7" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0488496, -0.998806, 4.64495e-09, 4.36389e-08, -2.51621e-09, -1, 0.998806, 0.0488496, 4.34639e-08, -13.7968, 2.12388, 1.6193)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall7"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall7"]
+mesh = SubResource("BoxMesh_fjeow")
+
+[node name="wall8" type="StaticBody3D" parent="."]
+transform = Transform3D(0.0488496, -0.998806, 4.64495e-09, 4.36389e-08, -2.51621e-09, -1, 0.998806, 0.0488496, 4.34639e-08, -3.55556, 3.85893, -6.04275)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall8"]
+shape = SubResource("BoxShape3D_fgqcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wall8"]
+mesh = SubResource("BoxMesh_fjeow")

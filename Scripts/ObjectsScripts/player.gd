@@ -36,13 +36,13 @@ func type_movement(delta):
 	match stat_move:
 		STATUS_MOVEMENT.run:
 			speed = snapped(move_toward(speed, real_speed, 20 * delta), 0.001)
-			camera.fov = snapped(move_toward(camera.fov, 90.0, 100 * delta), 0.001)
+			camera.fov = snapped(lerp(camera.fov, 90.0, 0.05), 0.001)
 		STATUS_MOVEMENT.sprint:
 			speed = snapped(move_toward(speed, real_speed * 1.8, 20 * delta), 0.001)
-			camera.fov = snapped(move_toward(camera.fov, 100.0, 100 * delta), 0.001)
+			camera.fov = snapped(lerp(camera.fov, 100.0, 0.05), 0.001)
 		STATUS_MOVEMENT.walk:
 			speed = snapped(move_toward(speed, real_speed * 0.3, 20 * delta), 0.001)
-			camera.fov = snapped(move_toward(camera.fov, 90.0, 100 * delta), 0.001)
+			camera.fov = snapped(lerp(camera.fov, 90.0, 0.05), 0.001)
 
 func change_pose(CHANGE_POSE_STATUS):
 	stat_pose = CHANGE_POSE_STATUS
@@ -71,7 +71,7 @@ func get_movement(delta):
 		velocity.y = jump
 		can_jump = false
 
-	if velocity == Vector3.ZERO:
+	if (velocity == Vector3.ZERO) or (not Input.is_action_pressed("move_forward")):
 		change_movement(STATUS_MOVEMENT.run)
 
 	if Input.is_action_just_pressed("ctl"):
@@ -83,7 +83,7 @@ func get_movement(delta):
 			change_movement(STATUS_MOVEMENT.run)
 	
 	if Input.is_action_just_pressed("shift"):
-		if stat_move == STATUS_MOVEMENT.run:
+		if stat_move == STATUS_MOVEMENT.run and Input.is_action_pressed("move_forward"):
 			change_movement(STATUS_MOVEMENT.sprint)
 		else:
 			change_movement(STATUS_MOVEMENT.run)
@@ -108,11 +108,20 @@ func get_animation():
 	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_forward"):
 		animation.play_backwards("walk")
 
+func get_input():
+	if Input.is_action_pressed("RBM"):
+		camera.fov = snapped(lerp(camera.fov, -20.0, 0.05), 0.001)
+	else:
+		camera.fov = snapped(lerp(camera.fov, 90.0, 0.05), 0.001)
+
 func _physics_process(delta):
 	get_animation()
 	get_gravity(delta)
 	get_movement(delta)
 	type_movement(delta)
 	type_pose(delta)
+	get_input()
+
+	print(velocity, speed)
 
 	move_and_slide()
