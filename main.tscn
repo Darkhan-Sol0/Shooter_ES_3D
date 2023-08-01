@@ -8,7 +8,8 @@
 
 [node name="Level0" parent="." instance=ExtResource("1_0nv3b")]
 
-[node name="Player" parent="Level0" instance=ExtResource("2_5wbbs")]
+[node name="Player" parent="." instance=ExtResource("2_5wbbs")]
+transform = Transform3D(-1, 0, -0.000802906, 0, 1, 0, 0.000802906, 0, -1, 0, 0, 0)
 
 [node name="Enemy" parent="." instance=ExtResource("3_ohpko")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611029, 0, 5.81468)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.14609)

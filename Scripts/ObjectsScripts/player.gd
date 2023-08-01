@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-@onready var animation = $"AnimationPlayer"
+@onready var animation : AnimationTree = $AnimationTree
 
-@onready var camera = $Head/IterpolatedTransform/Camera3D
+@onready var camera = $Head/Camera_Player
 
 @export var real_speed : float = 7.0
 var speed : float = 0.0
@@ -20,13 +20,20 @@ enum STATUS_POSE { stay, seat }
 @export var stat_pose : STATUS_POSE
 
 func _ready():
-	pass
+	animation.active = true
+	
+#	qt_prev = global_transform
+#	qt_current = global_transform
+
+#func update_transform():
+#	qt_prev = qt_current
+#	qt_current = global_transform
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		var dx = -event.relative.x * 0.0025
 		var dy = -event.relative.y * 0.0025
-		rotate_y(dx)
+		rotate_y(dx * (Engine.get_frames_per_second()/Engine.physics_ticks_per_second))
 		$Head.rotation.x = clamp($Head.rotation.x + dy, -PI/2, PI/2)
 
 func change_movement(CHANGE_MOVE_STATUS):
@@ -39,7 +46,7 @@ func type_movement(delta):
 			camera.fov = snapped(lerp(camera.fov, 90.0, 0.05), 0.001)
 		STATUS_MOVEMENT.sprint:
 			speed = snapped(move_toward(speed, real_speed * 1.8, 20 * delta), 0.001)
-			camera.fov = snapped(lerp(camera.fov, 100.0, 0.05), 0.001)
+			camera.fov = snapped(lerp(camera.fov, 110.0, 0.05), 0.001)
 		STATUS_MOVEMENT.walk:
 			speed = snapped(move_toward(speed, real_speed * 0.3, 20 * delta), 0.001)
 			camera.fov = snapped(lerp(camera.fov, 90.0, 0.05), 0.001)
@@ -71,7 +78,7 @@ func get_movement(delta):
 		velocity.y = jump
 		can_jump = false
 
-	if (velocity == Vector3.ZERO) or (not Input.is_action_pressed("move_forward")):
+	if (stat_move == STATUS_MOVEMENT.sprint) and ((velocity == Vector3.ZERO) or (not Input.is_action_pressed("move_forward"))):
 		change_movement(STATUS_MOVEMENT.run)
 
 	if Input.is_action_just_pressed("ctl"):
@@ -100,13 +107,12 @@ func get_movement(delta):
 		velocity.x = snapped(lerp(velocity.x, 0.0, stop_speed), 0.001)
 
 func get_animation():
-	if velocity == Vector3(0,0,0):
-		animation.play("idle")
-	
-	if Input.is_action_pressed("move_back") or Input.is_action_pressed("move_right"):
-		animation.play("walk")
-	elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_forward"):
-		animation.play_backwards("walk")
+	if velocity == Vector3.ZERO:
+		animation["parameters/conditions/idle"] = true
+		animation["parameters/conditions/moving"] = false
+	else:
+		animation["parameters/conditions/moving"] = true
+		animation["parameters/conditions/idle"] = false
 
 func get_input():
 	if Input.is_action_pressed("RBM"):
@@ -115,13 +121,21 @@ func get_input():
 		camera.fov = snapped(lerp(camera.fov, 90.0, 0.05), 0.001)
 
 func _physics_process(delta):
-	get_animation()
 	get_gravity(delta)
 	get_movement(delta)
+#	update = true
+
+	move_and_slide()
+
+func _process(delta):
+	get_animation()
 	type_movement(delta)
 	type_pose(delta)
 	get_input()
-
-	print(velocity, speed)
-
-	move_and_slide()
+	
+#	if update:
+#		update_transform()
+#		update = false
+#
+#	var f = clamp(Engine.get_physics_interpolation_fraction(), 0, 1)
+#	global_transform = qt_prev.interpolate_with(qt_current, f)

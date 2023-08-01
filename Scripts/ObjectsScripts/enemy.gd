@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+
 @onready var HP = $"Label3D"
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -11,6 +12,7 @@ var real_hp : int
 func _ready():
 	real_hp = max_hp
 	HP.text = str(real_hp)
+	
 
 func take_damage(damage):
 	real_hp -= damage
@@ -22,5 +24,9 @@ func take_damage(damage):
 		queue_free()
 
 func _physics_process(delta):
+
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	else:
+		velocity.y = lerp(0, 5, 50 * delta)
+	move_and_slide()

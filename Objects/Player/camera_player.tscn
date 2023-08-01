@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1tpjrqptl0rp"]
+
+[ext_resource type="Script" path="res://Objects/Player/Control.gd" id="1_xt5rd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejjf6"]
+font_color = Color(0, 0, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2lmh"]
+font_color = Color(0, 1, 0, 1)
+
+[node name="Camera_Player" type="Camera3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xt5rd")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 29.0
+offset_right = 279.0
+offset_bottom = 134.0
+label_settings = SubResource("LabelSettings_ejjf6")
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 77.0
+offset_right = 277.0
+offset_bottom = 182.0
+label_settings = SubResource("LabelSettings_t2lmh")

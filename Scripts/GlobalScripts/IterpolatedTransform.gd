@@ -1,26 +1,27 @@
 extends Node3D
-class_name IterpolatedTransform
+class_name InterpolatedTransform
 
-var iterpolation_time : float = 0.0
-var transforms := []
-var parent : Node3D
+var update = false
+var qt_prev : Transform3D
+var qt_current : Transform3D
 
 func _ready():
-	parent = get_parent_node_3d()
-	transforms = [parent.global_transform, parent.global_transform]
 	set_as_top_level(true)
 
-func _physics_process(delta):
-	iterpolation_time = 0.0
-	transforms.push_back(parent.global_transform)
-	transforms.pop_front()
+	qt_prev = owner.global_transform
+	qt_current = owner.global_transform
+
+func update_transform():
+	qt_prev = qt_current
+	qt_current = owner.global_transform
 
 func _process(delta):
-	iterpolation_time += delta
-	
-	var old_transform : Transform3D = transforms[transforms.size() - 2]
-	var new_transform : Transform3D = transforms[transforms.size() - 1]
-	
-	var it : float = iterpolation_time * Engine.physics_ticks_per_second
-	
-	global_transform = old_transform.interpolate_with(new_transform, it)
+	if update:
+		update_transform()
+		update = false
+
+	var f = clamp(Engine.get_physics_interpolation_fraction(), 0, 1)
+	owner.global_transform = qt_prev.interpolate_with(qt_current, f)
+
+func _physics_process(delta):
+	update = true

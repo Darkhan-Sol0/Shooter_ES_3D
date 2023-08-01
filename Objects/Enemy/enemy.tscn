@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://n35ffdijgoci"]
+[gd_scene load_steps=6 format=3 uid="uid://n35ffdijgoci"]
 
 [ext_resource type="Script" path="res://Scripts/ObjectsScripts/enemy.gd" id="1_snhpm"]
+[ext_resource type="Script" path="res://Scripts/GlobalScripts/IterpolatedTransform.gd" id="2_xtolv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yxf8p"]
 
@@ -26,3 +27,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32289, 0)
 billboard = 1
 modulate = Color(1, 0, 0, 1)
 text = "HP"
+
+[node name="InterpolatedTransform" type="Node3D" parent="."]
+script = ExtResource("2_xtolv")
