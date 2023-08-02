@@ -104,9 +104,6 @@ shape = SubResource("CapsuleShape3D_gxbrq")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Marker3D" type="Marker3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 0.960011, 0.279963, 0, -0.279963, 0.960011, 0.477119, -0.529948, -0.312367)
-
 [node name="Camera_Player" parent="Head" instance=ExtResource("3_r6jhl")]
 current = true
 
