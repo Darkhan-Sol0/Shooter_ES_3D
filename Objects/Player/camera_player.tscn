@@ -10,7 +10,9 @@ font_color = Color(0, 1, 0, 1)
 
 [node name="Camera_Player" type="Camera3D"]
 
-[node name="Control" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xt5rd")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 53.0
 offset_top = 29.0
@@ -27,7 +29,7 @@ offset_right = 279.0
 offset_bottom = 134.0
 label_settings = SubResource("LabelSettings_ejjf6")
 
-[node name="Label2" type="Label" parent="Control"]
+[node name="Label2" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 51.0
 offset_top = 77.0

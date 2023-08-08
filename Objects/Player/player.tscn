@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bh6egtb2u1di8"]
+[gd_scene load_steps=15 format=3 uid="uid://bh6egtb2u1di8"]
 
 [ext_resource type="Script" path="res://Scripts/ObjectsScripts/player.gd" id="1_6s5b0"]
 [ext_resource type="PackedScene" uid="uid://c1tpjrqptl0rp" path="res://Objects/Player/camera_player.tscn" id="3_r6jhl"]
 [ext_resource type="Script" path="res://Scripts/GlobalScripts/IterpolatedTransform.gd" id="3_rdh6x"]
+[ext_resource type="Script" path="res://Scripts/ComponentScripts/Attack_Component.gd" id="4_kt3fb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxbrq"]
 
@@ -95,6 +96,7 @@ states/walk/position = Vector2(617, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p3pxp"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_rskv7"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_y65dk")]
 
 [node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0)
 script = ExtResource("1_6s5b0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -102,10 +104,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_gxbrq")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.578187)
 
 [node name="Camera_Player" parent="Head" instance=ExtResource("3_r6jhl")]
 current = true
+
+[node name="Start_bullet" type="Marker3D" parent="Head"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -120,3 +124,34 @@ parameters/conditions/moving = false
 
 [node name="InterpolatedTransform" type="Node3D" parent="."]
 script = ExtResource("3_rdh6x")
+
+[node name="HeadCast" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Center" type="RayCast3D" parent="HeadCast"]
+target_position = Vector3(0, 1, 0)
+
+[node name="Forward" type="RayCast3D" parent="HeadCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+target_position = Vector3(0, 1, 0)
+
+[node name="Backward" type="RayCast3D" parent="HeadCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+target_position = Vector3(0, 1, 0)
+
+[node name="Right" type="RayCast3D" parent="HeadCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+target_position = Vector3(0, 1, 0)
+
+[node name="Left" type="RayCast3D" parent="HeadCast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+target_position = Vector3(0, 1, 0)
+
+[node name="Attack_Component" type="Node3D" parent="." node_paths=PackedStringArray("startbullet")]
+script = ExtResource("4_kt3fb")
+startbullet = NodePath("../Head/Start_bullet")
+max_ammo = 1000
+damage = 10
+large = 50.0
+type_fire = 1
+otdacha = 0.01
