@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1tpjrqptl0rp"]
+[gd_scene load_steps=5 format=3 uid="uid://c1tpjrqptl0rp"]
 
 [ext_resource type="Script" path="res://Objects/Player/Control.gd" id="1_xt5rd"]
+[ext_resource type="Texture2D" uid="uid://bivpcti2v3ysm" path="res://icon.svg" id="2_cyp3q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ejjf6"]
 font_color = Color(0, 0, 1, 1)
@@ -36,3 +37,17 @@ offset_top = 77.0
 offset_right = 277.0
 offset_bottom = 182.0
 label_settings = SubResource("LabelSettings_t2lmh")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_cyp3q")
+expand_mode = 1
+stretch_mode = 3

@@ -22,6 +22,9 @@ var reloaded : bool = true
 
 @export var otdacha : float = 0
 
+enum Type_Bullet { RAY, BULLET }
+@export var type_bullet : Type_Bullet
+
 func _ready():
 	ammo = max_ammo
 
@@ -48,18 +51,35 @@ func shot():
 		fired = false
 		for i in drop:
 			bullet_func()
-		$"../Head".rotation.x = lerp($"../Head".rotation.x, $"../Head".rotation.x + otdacha, 1)
+		$"../Head".rotation.x = lerp($"../Head".rotation.x, $"../Head".rotation.x + otdacha, 0.1)
 		await get_tree().create_timer(shot_coldown).timeout
 		fired = true
-		$"../Head".rotation.x = lerp($"../Head".rotation.x, $"../Head".rotation.x - otdacha/2, 1)
+		$"../Head".rotation.x = lerp($"../Head".rotation.x, $"../Head".rotation.x - otdacha/2, 0.1)
 	elif ammo <= 0:
 		reload()
 
 func bullet_func():
-	var bullet_ins = preload("res://Objects/Staff/bullet.tscn").instantiate()
-	var theta = randf() * 2 * PI
-	var r = randf_range(0, razbros)
-	bullet_ins.global_transform = startbullet.global_transform
-	bullet_ins.damage = damage
-	bullet_ins.apply_central_impulse(Vector3(r * cos(theta), r * sin(theta), -large).rotated(Vector3(1,0,0), startbullet.global_rotation.x).rotated(Vector3(0,1,0), startbullet.global_rotation.y))
-	Global.add_child(bullet_ins)
+	match type_bullet:
+		Type_Bullet.BULLET:
+			var bullet_ins = preload("res://Objects/Staff/bullet.tscn").instantiate()
+			var theta = randf() * 2 * PI
+			var r = randf_range(0, razbros)
+			bullet_ins.global_transform = startbullet.global_transform
+			bullet_ins.rotation.z = randf_range(0, PI)
+			bullet_ins.damage = damage
+			bullet_ins.apply_central_impulse(Vector3(r * cos(theta), r * sin(theta), -large).rotated(Vector3(1,0,0), startbullet.global_rotation.x).rotated(Vector3(0,1,0), startbullet.global_rotation.y))
+			Global.add_child(bullet_ins)
+		Type_Bullet.RAY:
+			var bullet_ins = RayCast3D.new()
+			var r = randf_range(-razbros, razbros)
+			bullet_ins.target_position = Vector3(0, r, -large)
+			bullet_ins.global_transform = startbullet.global_transform
+			bullet_ins.rotation.z = randf_range(0, 2*PI)
+			Global.add_child(bullet_ins)
+			await get_tree().create_timer(0.1).timeout
+			if bullet_ins.is_colliding():
+				if bullet_ins.get_collider().has_method("take_damage"):
+					bullet_ins.get_collider().take_damage(damage)
+			await get_tree().create_timer(0.2).timeout
+			get_tree().queue_delete(bullet_ins)
+

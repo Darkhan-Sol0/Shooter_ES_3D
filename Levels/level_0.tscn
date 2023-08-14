@@ -23,6 +23,8 @@ size = Vector3(10, 10, 1)
 [node name="Level0" type="Node3D"]
 
 [node name="ground" type="StaticBody3D" parent="."]
+collision_layer = 255
+collision_mask = 255
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
 shape = SubResource("WorldBoundaryShape3D_q6oyx")

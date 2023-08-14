@@ -140,7 +140,7 @@ func get_animation(delta):
 		animation["parameters/conditions/idle"] = true
 		animation["parameters/conditions/moving"] = false
 
-func get_input():
+func get_input(delta):
 	Attack.fire()
 
 func _physics_process(delta):
@@ -154,6 +154,6 @@ func _physics_process(delta):
 func _process(delta):
 	get_animation(delta)
 	
-	get_input()
+	get_input(delta)
 	
 	HeadCast.position = Head.position

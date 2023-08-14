@@ -17,5 +17,6 @@ func _on_body_entered(cell : Node3D):
 
 	queue_free()
 
-func _physics_process(delta):
-	pass
+func _process(delta):
+	await get_tree().create_timer(2).timeout
+	queue_free()
