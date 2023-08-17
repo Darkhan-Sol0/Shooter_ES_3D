@@ -6,7 +6,7 @@
 radius = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_katix"]
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0, 0, 1, 1)
 rim_enabled = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_0u2dx"]
@@ -26,3 +26,6 @@ shape = SubResource("SphereShape3D_tdyx3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_0u2dx")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+omni_shadow_mode = 0

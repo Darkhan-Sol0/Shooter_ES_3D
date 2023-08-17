@@ -1,18 +1,19 @@
 [gd_scene load_steps=8 format=3 uid="uid://b83k67gvuvgfj"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_q6oyx"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_01qpw"]
-size = Vector2(20, 20)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v1cvc"]
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8g682"]
 
 [sub_resource type="Sky" id="Sky_ksrfp"]
-sky_material = SubResource("ProceduralSkyMaterial_v1cvc")
+sky_material = SubResource("PhysicalSkyMaterial_8g682")
 
 [sub_resource type="Environment" id="Environment_ibxkw"]
 background_mode = 2
 sky = SubResource("Sky_ksrfp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rbiaq"]
+size = Vector3(1000, 0.1, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yuvq3"]
+size = Vector3(1000, 0.1, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fgqcp"]
 size = Vector3(10, 10, 1)
@@ -22,25 +23,21 @@ size = Vector3(10, 10, 1)
 
 [node name="Level0" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ibxkw")
+
 [node name="ground" type="StaticBody3D" parent="."]
 collision_layer = 255
 collision_mask = 255
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
-shape = SubResource("WorldBoundaryShape3D_q6oyx")
+shape = SubResource("BoxShape3D_rbiaq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
-mesh = SubResource("PlaneMesh_01qpw")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ibxkw")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.434461, 0.900691, 0, -0.900691, 0.434461, 0, 0, 0)
-shadow_enabled = true
+mesh = SubResource("BoxMesh_yuvq3")
 
 [node name="wall" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877958, 5.20592, -11.0738)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.877958, 5.13033, -11.0738)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall"]
 shape = SubResource("BoxShape3D_fgqcp")
@@ -119,3 +116,7 @@ shape = SubResource("BoxShape3D_fgqcp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall8"]
 mesh = SubResource("BoxMesh_fjeow")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.844132, 0.536136, 0, -0.536136, 0.844132, 0, 7.52073, 11.8529)
+shadow_enabled = true

@@ -1,15 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1m8tqqmwrtbu"]
+[gd_scene load_steps=3 format=3 uid="uid://b1m8tqqmwrtbu"]
 
 [ext_resource type="PackedScene" uid="uid://b83k67gvuvgfj" path="res://Levels/level_0.tscn" id="1_0nv3b"]
-[ext_resource type="PackedScene" uid="uid://bh6egtb2u1di8" path="res://Objects/Player/player.tscn" id="2_5wbbs"]
-[ext_resource type="PackedScene" uid="uid://n35ffdijgoci" path="res://Objects/Enemy/enemy.tscn" id="3_ohpko"]
+[ext_resource type="PackedScene" uid="uid://bjv6l1e50nn5t" path="res://Objects/Player/rb_player.tscn" id="2_1nkbe"]
 
 [node name="Main" type="Node"]
 
 [node name="Level0" parent="." instance=ExtResource("1_0nv3b")]
 
-[node name="Player" parent="." instance=ExtResource("2_5wbbs")]
-transform = Transform3D(-1, 0, -0.000802906, 0, 1, 0, 0.000802906, 0, -1, 0, 0, 0)
-
-[node name="Enemy" parent="." instance=ExtResource("3_ohpko")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.14609)
+[node name="RBPlayer" parent="." instance=ExtResource("2_1nkbe")]

@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjv6l1e50nn5t"]
+
+[ext_resource type="Script" path="res://Scripts/ObjectsScripts/rb_player.gd" id="1_mr5sw"]
+[ext_resource type="PackedScene" uid="uid://c1tpjrqptl0rp" path="res://Objects/Player/camera_player.tscn" id="1_r6uu0"]
+[ext_resource type="Script" path="res://Scripts/ComponentScripts/Attack_Component.gd" id="3_xrleh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k25rf"]
+
+[node name="RBPlayer" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 100.0
+script = ExtResource("1_mr5sw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_k25rf")
+metadata/_edit_group_ = true
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+
+[node name="Camera_Player" parent="Head" instance=ExtResource("1_r6uu0")]
+
+[node name="Startbullet" type="Marker3D" parent="Head/Camera_Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="FloorDetect" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+
+[node name="Center" type="RayCast3D" parent="FloorDetect"]
+target_position = Vector3(0, -0.3, 0)
+
+[node name="Center2" type="RayCast3D" parent="FloorDetect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+target_position = Vector3(0, -0.3, 0)
+
+[node name="Center3" type="RayCast3D" parent="FloorDetect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+target_position = Vector3(0, -0.3, 0)
+
+[node name="Center4" type="RayCast3D" parent="FloorDetect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+target_position = Vector3(0, -0.3, 0)
+
+[node name="Center5" type="RayCast3D" parent="FloorDetect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+target_position = Vector3(0, -0.3, 0)
+
+[node name="Attack_Component" type="Node3D" parent="." node_paths=PackedStringArray("startbullet")]
+script = ExtResource("3_xrleh")
+startbullet = NodePath("../Head/Camera_Player/Startbullet")
+max_ammo = 100
+damage = 100
+type_fire = 1
+type_bullet = 1

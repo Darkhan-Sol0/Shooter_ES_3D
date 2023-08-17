@@ -7,7 +7,7 @@ class_name Attack_Component
 var ammo : int
 
 @export var damage : int = 0
-@export var large : float = 100.0
+@export var large : float = 30.0
 @export var razbros : float = 1
 @export var drop : int = 1
 
