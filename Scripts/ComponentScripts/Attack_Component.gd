@@ -62,12 +62,12 @@ func bullet_func():
 	match type_bullet:
 		Type_Bullet.BULLET:
 			var bullet_ins = preload("res://Objects/Staff/bullet.tscn").instantiate()
-			var theta = randf() * 2 * PI
 			var r = randf_range(0, razbros)
 			bullet_ins.global_transform = startbullet.global_transform
-			bullet_ins.rotation.z = randf_range(0, PI)
+			bullet_ins.rotation.z = randf_range(0, 2 * PI)
 			bullet_ins.damage = damage
-			bullet_ins.apply_central_impulse(Vector3(r * cos(theta), r * sin(theta), -large).rotated(Vector3(1,0,0), startbullet.global_rotation.x).rotated(Vector3(0,1,0), startbullet.global_rotation.y))
+			bullet_ins.linear_velocity = (bullet_ins.transform.basis * Vector3(0,r,-large))
+			
 			Global.add_child(bullet_ins)
 		Type_Bullet.RAY:
 			var bullet_ins = RayCast3D.new()

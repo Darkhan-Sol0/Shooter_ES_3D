@@ -118,5 +118,5 @@ shape = SubResource("BoxShape3D_fgqcp")
 mesh = SubResource("BoxMesh_fjeow")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.844132, 0.536136, 0, -0.536136, 0.844132, 0, 7.52073, 11.8529)
+transform = Transform3D(1, 0, 0, 0, 0.0106109, -0.999944, 0, 0.999944, 0.0106109, 0, 7.52073, 11.8529)
 shadow_enabled = true

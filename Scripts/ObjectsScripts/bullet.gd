@@ -14,9 +14,11 @@ func _on_body_entered(cell : Node3D):
 	
 	if cell.has_method("take_damage"):
 		cell.take_damage(damage)
-
-	queue_free()
+	
+	$OmniLight3D.light_energy = 1
 
 func _process(delta):
+	if $OmniLight3D.light_energy > 0.1:
+		$OmniLight3D.light_energy -= delta
 	await get_tree().create_timer(2).timeout
 	queue_free()

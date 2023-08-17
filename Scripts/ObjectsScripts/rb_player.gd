@@ -11,13 +11,14 @@ extends RigidBody3D
 @export var speed : float = 10.0
 @export var jump : float = 5.0
 @export var acceleration : float = 10
-@export var decceleration : float = 5
+@export var decceleration : float = 10
 
 #---Mouse settings---
 @export var mouse_sens : float = 0.0025
 var dx : float
 var dy : float
 
+var gravity = 10
 
 func _ready():
 	angular_damp = Engine.physics_ticks_per_second/2
@@ -39,22 +40,22 @@ func is_on_floor() -> bool:
 			pass
 	return false
 
-func get_movement(delta) -> void:
+func get_movement() -> void:
 	if Input.is_action_just_pressed("space") and is_on_floor():
 		linear_velocity.y = jump
 	
 	var dir_input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var move_dir = (Head.transform.basis * Vector3(dir_input.x, 0, dir_input.y)).normalized()
 	if move_dir:
-		linear_velocity.x = lerp(linear_velocity.x, move_dir.x * speed, acceleration * delta)
-		linear_velocity.z = lerp(linear_velocity.z, move_dir.z * speed, acceleration * delta)
+		linear_velocity.x = lerp(linear_velocity.x, move_dir.x * speed, acceleration * 0.1)
+		linear_velocity.z = lerp(linear_velocity.z, move_dir.z * speed, acceleration * 0.1)
 	else: 
-		linear_velocity.x = lerp(linear_velocity.x, 0.0, decceleration * delta)
-		linear_velocity.z = lerp(linear_velocity.z, 0.0, decceleration * delta)
+		linear_velocity.x = lerp(linear_velocity.x, 0.0, decceleration * 0.1)
+		linear_velocity.z = lerp(linear_velocity.z, 0.0, decceleration * 0.1)
 
 func get_input():
 	Attack.fire()
 
 func _physics_process(delta):
-	get_movement(delta)
+	get_movement()
 	get_input()
