@@ -12,6 +12,9 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 mass = 100.0
 inertia = Vector3(0, 100, 0)
+continuous_cd = true
+max_contacts_reported = 10
+contact_monitor = true
 script = ExtResource("1_mr5sw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -26,28 +29,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
 
 [node name="Startbullet" type="Marker3D" parent="Head/Camera_Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="FloorDetect" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-
-[node name="Center" type="RayCast3D" parent="FloorDetect"]
-target_position = Vector3(0, -0.5, 0)
-
-[node name="Center2" type="RayCast3D" parent="FloorDetect"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-target_position = Vector3(0, -0.5, 0)
-
-[node name="Center3" type="RayCast3D" parent="FloorDetect"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
-target_position = Vector3(0, -0.5, 0)
-
-[node name="Center4" type="RayCast3D" parent="FloorDetect"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
-target_position = Vector3(0, -0.5, 0)
-
-[node name="Center5" type="RayCast3D" parent="FloorDetect"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
-target_position = Vector3(0, -0.5, 0)
 
 [node name="Attack_Component" type="Node3D" parent="." node_paths=PackedStringArray("startbullet")]
 script = ExtResource("3_xrleh")

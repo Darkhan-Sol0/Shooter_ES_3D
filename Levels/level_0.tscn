@@ -1,4 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://b83k67gvuvgfj"]
+[gd_scene load_steps=9 format=3 uid="uid://b83k67gvuvgfj"]
+
+[ext_resource type="PackedScene" uid="uid://cob7hkf484g7q" path="res://Objects/Staff/lamp.tscn" id="1_sd0em"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8g682"]
 
@@ -117,6 +119,17 @@ shape = SubResource("BoxShape3D_fgqcp")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="wall8"]
 mesh = SubResource("BoxMesh_fjeow")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0106109, -0.999944, 0, 0.999944, 0.0106109, 0, 7.52073, 11.8529)
-shadow_enabled = true
+[node name="Lamp" parent="." instance=ExtResource("1_sd0em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.8759, 0.5, 25.954)
+
+[node name="Lamp2" parent="." instance=ExtResource("1_sd0em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.8274, 0.5, 27.7617)
+
+[node name="Lamp3" parent="." instance=ExtResource("1_sd0em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.8274, 0.5, 29.2432)
+
+[node name="Lamp4" parent="." instance=ExtResource("1_sd0em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.4961, 0.5, 27.7617)
+
+[node name="Lamp5" parent="." instance=ExtResource("1_sd0em")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.3665, 0.5, 27.7617)
